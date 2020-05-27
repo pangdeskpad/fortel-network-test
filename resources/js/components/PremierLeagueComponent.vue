@@ -62,12 +62,12 @@
 
                 <div class="league-buttons flex justify-between">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded"
-                            v-on:click="playAllMatches" v-show="current_week < 6" v-disabled="doingMatch">
+                            v-on:click="playAllMatches" v-show="current_week < 6" :disabled="doingMatch">
                         Play All
                     </button>
 
                     <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded"
-                            v-on:click="playNextWeekMatches" v-show="current_week < 6" v-disabled="doingMatch">
+                            v-on:click="playNextWeekMatches" v-show="current_week < 6" :disabled="doingMatch">
                         Next Week
                     </button>
 
