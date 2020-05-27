@@ -62,12 +62,12 @@
 
                 <div class="league-buttons flex justify-between">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded"
-                            v-on:click="playAllMatches" v-show="current_week < 6">
+                            v-on:click="playAllMatches" v-show="current_week < 6" v-disabled="doingMatch">
                         Play All
                     </button>
 
                     <button class="bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded"
-                            v-on:click="playNextWeekMatches" v-show="current_week < 6">
+                            v-on:click="playNextWeekMatches" v-show="current_week < 6" v-disabled="doingMatch">
                         Next Week
                     </button>
 
@@ -108,7 +108,8 @@
                 teams_state: [],
                 match_results: [],
                 champion_predicts: [],
-                current_week: 0
+                current_week: 0,
+                doingMatch: false,
             }
         },
         mounted() {
@@ -118,22 +119,28 @@
         methods: {
             playAllMatches: function() {
                 let self = this;
+                self.doingMatch = true;
                 axios.post('/api/play_all_matches', { weekId: self.current_week })
                     .then(function (response) {
                         self.initData(response.data);
+                        self.doingMatch = false;
                     })
                     .catch(function (error) {
                         console.log(error);
+                        self.doingMatch = false;
                     })
             },
             playNextWeekMatches: function() {
                 let self = this;
+                self.doingMatch = true;
                 axios.post('/api/play_next_week_matches', { weekId: self.current_week })
                     .then(function (response) {
                         self.initData(response.data);
+                        self.doingMatch = false;
                     })
                     .catch(function (error) {
                         console.log(error);
+                        self.doingMatch = false;
                     })
             },
             resetMatches: function() {
